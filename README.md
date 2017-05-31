@@ -1,3 +1,2 @@
-## About CURD
-
-this is full configured with login, register, social login (like: google,facebook,twitter,pinterest)
+# DAIS-LOGIN
+Diametric Laravel Application - Login and Users
