@@ -16,10 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UsersTableSeeder::class);
 
-        echo '--- USER CREATED ---';
-        echo 'Email : admin@admin.com And Password: 123456';
-
-        
-        $this->call(RoleAndPermissionTableSeeder::class);
+        echo '----- USER CREATED -----';
+        echo ' Email : admin@admin.com And Password: 123456';
     }
 }
