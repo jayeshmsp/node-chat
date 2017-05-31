@@ -1,6 +1,9 @@
 <?php
 
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Database\Seeder;
+use App\Role;
+use App\Permission;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,6 +14,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
+
+        echo '--- USER CREATED ---';
+        echo 'Email : admin@admin.com And Password: 123456';
+
+        
+        $this->call(RoleAndPermissionTableSeeder::class);
     }
 }
