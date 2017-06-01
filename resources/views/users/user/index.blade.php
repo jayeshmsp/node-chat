@@ -1,31 +1,23 @@
 @extends('layouts.app')
-
 @section('content')
-<!-- Main content -->
-    <section class="content">
-    	@include('users.user.partials.search')
-
-            
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="box">
-                    <div class="box-header">
-                        <div class="pull-left">
-                            <h3 class="box-title">Listing</h3>
-                        </div>
-                        @permission('user-add')
-                            <div class="pull-right">
-                                <h3 class="box-title">
-                                    <a class="btn btn-sm btn-primary" href="user/create">
-                                        Add User
-                                    </a>
-                                </h3>
-                            </div>
-                        @endpermission
-                        <div class="clearfix"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="white-box">
+                {{-- <div class="pull-left">
+                    @include('users.user.partials.search')
+                </div> --}}
+                @permission('user-add')
+                    <div>
+                        <h3 class="box-title">
+                            <a class="btn btn-sm btn-primary" href="user/create">
+                                Add User
+                            </a>
+                        </h3>
                     </div>
-                    <div class="box-body">
-                        <table id="example1" class="table table-bordered table-condensed">
+                @endpermission
+                <div class="table-responsive">
+                    <table id="example1" class="table">
                         @if($items->count())
                         <thead>
                             <tr>
@@ -65,10 +57,10 @@
                         </tbody>
                         @endif
                     </table>
-                 {!! str_replace('/?', '?', $items->appends(Request::except(array('page')))->render()) !!}
+                </div>
+                {!! str_replace('/?', '?', $items->appends(Request::except(array('page')))->render()) !!}
             </div>
         </div>
     </div>
 </div>
-</section>
-@stop
+@endsection

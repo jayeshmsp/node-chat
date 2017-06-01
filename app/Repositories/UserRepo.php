@@ -38,6 +38,7 @@ class UserRepo
 		$user->name  = $data['first_name'].' '.$data['last_name'];
 		$user->email  = $data['email'];
 		$user->password  = bcrypt($data['password']);
+		$user->verified  = DB::raw('"1"');
 		$user->save();
 
 		foreach($data['role_id'] as $role_id){

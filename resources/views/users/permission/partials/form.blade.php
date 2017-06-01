@@ -1,7 +1,6 @@
 <div class='box-body'>
     <!-- Name -->
     <div class='row'>
-      <div class="User-title"><h1 class="user-title-inner ">Permission</h1></div>
         <!-- Name -->
         <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
             <label class="control-label col-lg-3" for="name">Name</label>

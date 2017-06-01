@@ -1,115 +1,112 @@
 <!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- CSRF Token -->
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>{{ config('app.name', 'Laravel') }}</title>
-        <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-        <link href="{{ asset('css/bootstrap-tagsinput.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
-    </head>
-    <body class="{{(Auth::guest())?'login-body':'' }}">
-        <div id="app">
-            <div class="overlay" style="display: none;"></div>
-            
-            @include('layouts.partials.navigation')
-            
-            <div id="page-content-wrapper">
-                <button type="button" class="hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">
-                <span class="hamb-top"></span>
-                <span class="hamb-middle"></span>
-                <span class="hamb-bottom"></span>
-                </button>
-                <div class="lg_out">
-                    <nav class="navbar navbar-default">
-                        <div class="container-fluid">
-                            <ul class="nav navbar-nav navbar-right">
-                                @if (Auth::guest())
-                                <li><a href="{{ route('login') }}">Login</a></li>
-                                <li><a href="{{ route('register') }}">Register</a></li>
-                                @else
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                        {{ Auth::user()->first_name }} {{ Auth::user()->last_name }} <span class="caret"></span>
-                                    </a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>
-                                            <a href="{{ url('user/profile') }}">Profile</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('logout') }}"
-                                                onclick="event.preventDefault();
-                                                document.getElementById('logout-form').submit();">
-                                                Logout
-                                            </a>
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                <input type="hidden" name="_token" value="{{csrf_token()}}">
-                                            </form>
-                                        </li>
-                                    </ul>
-                                </li>
-                                @endif
-                            </ul>
-                        </div>
-                    </nav>
-                    <div class="">
-                        {{-- NOTIFICATION --}}
-                        @if(!Auth::guest())
-                        @include('layouts.partials.notifications')
-                        @endif
-                        @yield('content')
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('plugins/images/favicon.png')}}">
+    <title>{{ config('app.name', 'Laravel') }}</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="{{asset('bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+    <!-- Menu CSS -->
+    <link href="{{asset('plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css')}}" rel="stylesheet">
+    <!-- morris CSS -->
+    <link href="{{asset('plugins/bower_components/morrisjs/morris.css')}}" rel="stylesheet">
+    <!-- animation CSS -->
+    <link href="{{asset('css/animate.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap-tagsinput.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{asset('css/custom.css')}}" id="theme" rel="stylesheet">
+    <link href="{{asset('css/style.css')}}" rel="stylesheet">
+    <!-- color CSS -->
+    <link href="{{asset('css/colors/blue-dark.css')}}" id="theme" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+<body class="fix-sidebar">
+    <!-- Preloader -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+        </svg>
+    </div>
+    <div id="wrapper">
+        @include('layouts.partials.header')
+        @include('layouts.partials.navigation')
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">{{$module_name}} <small>{{ isset($title)?$title:'' }}</small></h4> 
+                    </div>
+                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        <ol class="breadcrumb">
+                            <li {{ ((Request::segment(1)=='home') ? 'class=active' : '') }}><a href="{{url('home')}}">Dashboard</a></li>
+                            @if(isset($module_name))
+                                <li class="active"><a href="{{url(Request::segment(1))}}">{{ $module_name }}</a></li>
+                            @endif
+                            @if(isset($title))
+                                <li class="active">{{ ucfirst($title) }}</li>
+                            @endif
+                        </ol>
                     </div>
                 </div>
-                <!--jjkkk-->
-                
+                @include('layouts.partials.notifications')
+                @yield('content')
+                <footer class="footer text-center"> {{date('Y')}} &copy; Copy right by {{ config('app.name', 'Laravel') }} </footer>
             </div>
-            
-            
         </div>
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="{{ asset('js/bootbox.min.js') }}"></script>
-        <script src="{{ asset('js/bootstrap-tagsinput.min.js') }}"></script>
-        <script src="{{ asset('js/select2.min.js') }}"></script>
-        <script src="{{ asset('js/custom.js') }}"></script>
-        <script>
-        $('select').select2();
-        $("i.fa.fa-bars").click(function() {
-            $(".side_menu").toggle();
+    </div>
+    
+    <script src="{{asset('plugins/bower_components/jquery/dist/jquery.min.js')}}"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{asset('bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    <!-- Menu Plugin JavaScript -->
+    <script src="{{asset('plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js')}}"></script>
+    <!--slimscroll JavaScript -->
+    <script src="{{asset('js/jquery.slimscroll.js')}}"></script>
+    <!--Wave Effects -->
+    <script src="{{asset('js/waves.js')}}"></script>
+    <!--Counter js -->
+    <script src="{{asset('plugins/bower_components/waypoints/lib/jquery.waypoints.js')}}"></script>
+    <script src="{{asset('plugins/bower_components/counterup/jquery.counterup.min.js')}}"></script>
+    <!--Morris JavaScript -->
+    <script src="{{asset('plugins/bower_components/raphael/raphael-min.js')}}"></script>
+    <script src="{{asset('plugins/bower_components/morrisjs/morris.js')}}"></script>
+    <!-- chartist chart -->
+    <script src="{{asset('plugins/bower_components/chartist-js/dist/chartist.min.js')}}"></script>
+    <script src="{{asset('plugins/bower_components/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js')}}"></script>
+    <!-- Calendar JavaScript -->
+    <script src="{{asset('plugins/bower_components/moment/moment.js')}}"></script>
+    <script src="{{asset('plugins/bower_components/calendar/dist/fullcalendar.min.js')}}"></script>
+    <script src="{{asset('plugins/bower_components/calendar/dist/cal-init.js')}}"></script>
+    <script src="{{ asset('js/bootbox.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-tagsinput.min.js') }}"></script>
+    <script src="{{ asset('js/select2.min.js') }}"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="{{asset('js/custom.min.js')}}"></script>
+    <!-- Custom tab JavaScript -->
+    <script src="{{asset('js/cbpFWTabs.js')}}"></script>
+    <script type="text/javascript">
+    $('select').select2();
+    (function() {
+        [].slice.call(document.querySelectorAll('.sttabs')).forEach(function(el) {
+            new CBPFWTabs(el);
         });
-        $(document).ready(function() {
-            var trigger = $('.hamburger'),
-                overlay = $('.overlay'),
-                isClosed = false;
+    })();
+    </script>
+    <script src="{{asset('plugins/bower_components/toast-master/js/jquery.toast.js')}}"></script>
+    <!--Style Switcher -->
+    <script src="{{asset('plugins/bower_components/styleswitcher/jQuery.style.switcher.js')}}"></script>
+</body>
 
-            function buttonSwitch() {
-                if (isClosed === true) {
-                    overlay.hide();
-                    trigger.removeClass('is-open');
-                    trigger.addClass('is-closed');
-                    isClosed = false;
-                } else {
-                    overlay.show();
-                    trigger.removeClass('is-closed');
-                    trigger.addClass('is-open');
-                    isClosed = true;
-                }
-            }
-            trigger.click(function() {
-                buttonSwitch();
-            });
-            $('[data-toggle="offcanvas"]').click(function() {
-                $('#app').toggleClass('toggled');
-            });
-        });
-        </script>
-    </body>
 </html>

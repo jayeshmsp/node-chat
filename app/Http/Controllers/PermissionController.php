@@ -39,12 +39,12 @@ class PermissionController extends Controller
 
         $compact = compact('items','srno');
 
-        return view($this->view_path . '.index',$compact);
+        return view($this->view_path . '.index',$compact)->with('title','list');
     }
 
     public function create()
     {
-        return view($this->view_path . '.create');
+        return view($this->view_path . '.create')->with('title','create');
     }
 
     public function store(Request $request)
@@ -81,7 +81,7 @@ class PermissionController extends Controller
 		//unset($item['password']);
 
 		$compact = compact('item');
-    	return view($this->view_path . '.update',$compact);
+    	return view($this->view_path . '.update',$compact)->with('title','edit');
     }
 
     public function update(Request $request,$id)

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
+use View;
 class HomeController extends Controller
 {
     /**
@@ -15,6 +16,7 @@ class HomeController extends Controller
     {
         parent::__construct($auth);
         $this->middleware('auth');
+        View::share('module_name','Dashboard');
     }
 
     /**

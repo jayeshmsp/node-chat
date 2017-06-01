@@ -23,8 +23,7 @@ class UserController extends Controller
         $this->SettingRepo = $SettingRepo;
 
         $this->view_path = 'users.user';
-        View::share('title', (($request->has('q'))?'Edit Profile':'Users'));
-        View::share('module_name', (($request->has('q'))?'Edit Profile':'Users'));
+        View::share('module_name', 'Users');
     }
 
     // Method : index
@@ -46,14 +45,16 @@ class UserController extends Controller
 
         $compact = compact('items','srno');
 
-        return view($this->view_path . '.index',$compact);
+        return view($this->view_path . '.index',$compact)
+                ->with('title', 'list');
     }
 
     public function create()
     {
         $roles = $this->RoleRepo->lists('name','id');
         $compact = compact('roles');
-        return view($this->view_path . '.create',$compact);
+        return view($this->view_path . '.create',$compact)
+                ->with('title', 'create');
     }
 
     public function store(Request $request)
@@ -97,7 +98,8 @@ class UserController extends Controller
         //unset($item['password']);
 
 		$compact = compact('item','roles');
-    	return view($this->view_path . '.update',$compact);
+    	return view($this->view_path . '.update',$compact)
+                ->with('title', 'edit');
     }
 
     public function update(Request $request,$id)
@@ -148,7 +150,8 @@ class UserController extends Controller
         View::share('title','Profile');
         
         $compact = compact('item','interest','skill');
-        return view($this->view_path . '.profile',$compact);        
+        return view($this->view_path . '.profile',$compact)
+                ->with('title', 'profile');        
     }
 
     public function postProfile(Request $request)

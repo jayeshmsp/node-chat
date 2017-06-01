@@ -1,11 +1,10 @@
 @extends('layouts.app')
-@include($view_path.'.partials.menu')
-
 @section('content')
 <section class="content">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="white-box">
                 <div class="box-header">
                     <h3 class="panel-title">Give permission for role : <strong> {{$role['name']}}</strong></h3>
                 </div>
@@ -44,7 +43,7 @@
                     </div>
                     <button type="submit" name="save" class="btn btn-success">Save</button>
                     {!! Form::close() !!}
-                </div>
+               </div>
             </div>
         </div>
     </div>

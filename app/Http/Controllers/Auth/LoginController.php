@@ -43,7 +43,6 @@ class LoginController extends Controller
         $this->pinterest = new Pinterest(config('services.pinterest.client_id'), config('services.pinterest.client_secret'));
         $this->middleware('guest')->except('logout');
     }
-
     /**
      * Redirect the user to the OAuth Provider.
      *
