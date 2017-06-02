@@ -30,7 +30,7 @@
                 </div>
                 <div class="form-group{{ $errors->has($login_with) ? ' has-error' : '' }}">
                     <div class="col-xs-12">
-                        <input id="{{$login_with}}" type="text" class="form-control" name="{{$login_with}}" value="{{ old($login_with) }}" placeholder="{{ ucfirst($login_with) }}">
+                        <input id="{{$login_with}}" type="text" class="form-control" name="{{$login_with}}" value="{{ old($login_with) }}" placeholder="{{ (($login_with!='both')?ucfirst($login_with):'Email/Username') }}">
                         @if ($errors->has($login_with))
                         <span class="help-block">
                             <strong>{{ $errors->first($login_with) }}</strong>

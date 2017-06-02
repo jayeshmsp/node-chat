@@ -146,10 +146,11 @@ class UserController extends Controller
         $item = $this->UserRepo->find(Auth::user()->id);
         $interest = $this->SettingRepo->lists('interest');
         $skill = $this->SettingRepo->lists('skill');
+        $state = $this->SettingRepo->lists('state');
         
         View::share('title','Profile');
         
-        $compact = compact('item','interest','skill');
+        $compact = compact('item','interest','skill','state');
         return view($this->view_path . '.profile',$compact)
                 ->with('title', 'profile');        
     }
@@ -157,6 +158,7 @@ class UserController extends Controller
     public function postProfile(Request $request)
     {
         $inputs = $request->except('_token','_method');
+       
         $data   = array_except($inputs,array('save','save_exit','password_confirmation'));
         $id = Auth::user()->id;
 
@@ -164,11 +166,12 @@ class UserController extends Controller
             'first_name' => 'required|string|alpha_space|max:255',
             'last_name' => 'required|string|alpha_space|max:255',
             'password' => 'sometimes|required|string|min:6|confirmed',
-            'mobile_contact_num' => 'required_without_all:work_contact_num,home_contact_num|max:10',
-            'work_contact_num' => 'required_without_all:mobile_contact_num,home_contact_num|max:10',
-            'home_contact_num' => 'required_without_all:mobile_contact_num,work_contact_num|max:10',
+            'mobile_contact_num' => 'required_without_all:work_contact_num,home_contact_num',
+            'work_contact_num' => 'required_without_all:mobile_contact_num,home_contact_num',
+            'home_contact_num' => 'required_without_all:mobile_contact_num,work_contact_num',
             'email' => "required|email|max:255|unique:users,email,".$id,
-            'address' => "max:255"
+            'address' => "max:255",
+            'zipcode' => "max:5|min:5"
         ];
         if(!$request->input('password')){
             unset($rules['password']);

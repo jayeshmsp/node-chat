@@ -50,7 +50,7 @@
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <ol class="breadcrumb">
-                            <li {{ ((Request::segment(1)=='home') ? 'class=active' : '') }}><a href="{{url('home')}}">Dashboard</a></li>
+                            <li {{ (( Request::segment(1)=='home') ? 'class=active' : '') }}><a href="{{url('home')}}">Dashboard</a></li>
                             @if(isset($module_name))
                                 <li class="active"><a href="{{url(Request::segment(1))}}">{{ $module_name }}</a></li>
                             @endif
@@ -62,7 +62,7 @@
                 </div>
                 @include('layouts.partials.notifications')
                 @yield('content')
-                <footer class="footer text-center"> {{date('Y')}} &copy; Copy right by {{ config('app.name', 'Laravel') }} </footer>
+                <footer class="footer text-center"> {{date('Y')}} &copy; Copy right by {{ config('setup.project_full_name', 'Laravel') }} </footer>
             </div>
         </div>
     </div>
@@ -94,6 +94,7 @@
     <script src="{{ asset('js/select2.min.js') }}"></script>
     <!-- Custom Theme JavaScript -->
     <script src="{{asset('js/custom.min.js')}}"></script>
+    <script src="{{asset('js/mask.js')}}"></script>
     <!-- Custom tab JavaScript -->
     <script src="{{asset('js/cbpFWTabs.js')}}"></script>
     <script type="text/javascript">

@@ -7,6 +7,7 @@
             <div class="col-lg-6">
                 {!! Form::radio('login_with', 'email' , true) !!} Email
                 {!! Form::radio('login_with', 'username' , false) !!} Username
+                {!! Form::radio('login_with', 'both' , false) !!} Both
                 {!! $errors->first('login_with', '<span class="help-block">:message</span>') !!}
             </div>
         </div>
@@ -28,6 +29,16 @@
                     <code>Please use " , " for add tag</code>
                 </span>
                 {!! $errors->first('skill', '<span class="help-block">:message</span>') !!}
+            </div>
+        </div>
+        <div class="form-group {{ $errors->has('state') ? 'has-error' : '' }}">
+            <label class="control-label col-lg-3" for="state ">State : </label>
+            <div class="col-sm-6">
+                {!! Form::text('state',old('state'),['data-role'=>'tagsinput','id'=>'tags-input']) !!}
+                <span class="help-block">
+                    <code>Please use " , " for add tag</code>
+                </span>
+                {!! $errors->first('state', '<span class="help-block">:message</span>') !!}
             </div>
         </div>
     </div>

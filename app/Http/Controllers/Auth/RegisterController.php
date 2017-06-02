@@ -64,10 +64,16 @@ class RegisterController extends Controller
             'password' => 'required|string|min:6|confirmed',
             'g-recaptcha-response' => 'required|captcha',
         ];
-        if (isset($data['username']) && !empty($data['username']) ) {
+        if (isset($data['both']) && !empty($data['both']) ) {
+            $field = filter_var($data['both'], FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+            $rules[$field] = filter_var($data['both'], FILTER_VALIDATE_EMAIL) ? 'required|string|email|max:255|unique:users' : 'required|string|max:255|unique:users';
+            if ($field=='username') {unset($rules['email']);}
+            $data[$field] = $data['both'];
+        }elseif (isset($data['username']) && !empty($data['username']) ) {
             $rules['username'] = 'required|string|max:255|unique:users';
             unset($rules['email']);
         }
+
         return Validator::make($data, $rules);
     }
 
@@ -79,7 +85,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user =  User::create([
+        $insert_ary = [
             'name' => $data['first_name'].' '.$data['last_name'],
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
@@ -87,7 +93,14 @@ class RegisterController extends Controller
             'username' => isset($data['username'])?$data['username']:'',
             'password' => bcrypt($data['password']),
             'email_token' => str_random(10),
-        ]);
+        ];
+
+        if (isset($data['both']) && !empty($data['both']) ) {
+            $field = filter_var($data['both'], FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+            $insert_ary[$field] = $data['both'];
+        }
+        
+        $user =  User::create($insert_ary);
         $user->attachRole('2');
 
         return $user;
