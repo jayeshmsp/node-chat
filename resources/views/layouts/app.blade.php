@@ -49,15 +49,18 @@
                         <h4 class="page-title">{{$module_name}} <small>{{ isset($title)?$title:'' }}</small></h4> 
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                        <ol class="breadcrumb">
-                            <li {{ (( Request::segment(1)=='home') ? 'class=active' : '') }}><a href="{{url('home')}}">Dashboard</a></li>
-                            @if(isset($module_name))
-                                <li class="active"><a href="{{url(Request::segment(1))}}">{{ $module_name }}</a></li>
-                            @endif
-                            @if(isset($title))
-                                <li class="active">{{ ucfirst($title) }}</li>
-                            @endif
-                        </ol>
+                        <?php $segments = Request::segments();?>
+                        @if(!empty($segments))
+                            <ol class="breadcrumb">
+                                <li {{ (( Request::segment(1)=='home') ? 'class=active' : '') }}><a href="{{url('home')}}">Dashboard</a></li>
+                                @if(isset($module_name))
+                                    <li class="active"><a href="{{url(Request::segment(1))}}">{{ $module_name }}</a></li>
+                                @endif
+                                @if(isset($title))
+                                    <li class="active">{{ ucfirst($title) }}</li>
+                                @endif
+                            </ol>
+                        @endif
                     </div>
                 </div>
                 @include('layouts.partials.notifications')

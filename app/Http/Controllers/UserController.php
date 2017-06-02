@@ -170,6 +170,7 @@ class UserController extends Controller
             'work_contact_num' => 'required_without_all:mobile_contact_num,home_contact_num',
             'home_contact_num' => 'required_without_all:mobile_contact_num,work_contact_num',
             'email' => "required|email|max:255|unique:users,email,".$id,
+            'username' => "required|max:255|unique:users,username,".$id,
             'address' => "max:255",
             'zipcode' => "max:5|min:5"
         ];

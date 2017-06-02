@@ -132,11 +132,12 @@ class LoginController extends Controller
     public function credentials(Request $request)
     {
         $field = filter_var($request->input('email'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-        $varified = filter_var($request->input('email'), FILTER_VALIDATE_EMAIL) ? 1 : 0;
+        //$varified = filter_var($request->input('email'), FILTER_VALIDATE_EMAIL) ? 1 : 0;
+
         return [
             $field => $request->email,
             'password' => $request->password,
-            'verified' => $varified,
+            'verified' => '1',
         ];
 
     }

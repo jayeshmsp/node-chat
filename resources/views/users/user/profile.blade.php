@@ -27,6 +27,13 @@
                         {!! $errors->first('email', '<span class="help-block">:message</span>') !!}
                     </div>
                 </div>
+                <div class="form-group {{ $errors->has('username') ? 'has-error' : '' }}">
+                    <label class="col-sm-3 control-label">Username</label>
+                    <div class="col-sm-6">
+                        {!! Form::text('username',null,array('class'=>'form-control')) !!}
+                        {!! $errors->first('username', '<span class="help-block">:message</span>') !!}
+                    </div>
+                </div>
                 @if(isset($item->is_profile_updated) && !empty($item->is_profile_updated) )
                 <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
                     <label class="col-sm-3 control-label">Password</label>

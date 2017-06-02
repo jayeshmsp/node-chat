@@ -8,8 +8,8 @@
             <small>Enter your details below</small>
             <form class="form-horizontal new-lg-form" role="form" method="POST" action="{{ route('register') }}">
                 {{ csrf_field() }}
-                <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
-                    <div class="col-xs-12">
+                <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }} {{ $errors->has('last_name') ? ' has-error' : '' }}">
+                    <div class="col-xs-6">
                         <input id="first_name" type="text" class="form-control" placeholder="First Name" name="first_name" value="{{ old('first_name') }}" required autofocus>
                         @if ($errors->has('first_name'))
                         <span class="help-block">
@@ -17,9 +17,7 @@
                         </span>
                         @endif
                     </div>
-                </div>
-                <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                    <div class="col-xs-12">
+                    <div class="col-xs-6">
                         <input id="last_name" type="text" class="form-control" name="last_name" value="{{ old('last_name') }}" required autofocus placeholder="Last Name">
                         @if ($errors->has('last_name'))
                         <span class="help-block">
@@ -28,27 +26,40 @@
                         @endif
                     </div>
                 </div>
-                <div class="form-group{{ $errors->has($login_with) ? ' has-error' : '' }}">
-                    <div class="col-xs-12">
-                        <input id="{{$login_with}}" type="text" class="form-control" name="{{$login_with}}" value="{{ old($login_with) }}" placeholder="{{ (($login_with!='both')?ucfirst($login_with):'Email/Username') }}">
-                        @if ($errors->has($login_with))
-                        <span class="help-block">
-                            <strong>{{ $errors->first($login_with) }}</strong>
-                        </span>
-                        @endif
+                @if ($login_with=='both')
+                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                        <div class="col-xs-12">
+                            <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" required autofocus placeholder="Email">
+                            @if ($errors->has('email'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('email') }}</strong>
+                            </span>
+                            @endif
+                        </div>
                     </div>
-                </div>{{--
-                <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-                    <label for="username" class="col-md-4 control-label">User Name</label>
-                    <div class="col-md-6">
-                        <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}">
-                        @if ($errors->has('username'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('username') }}</strong>
-                        </span>
-                        @endif
+                    <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
+                        <div class="col-xs-12">
+                            <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required autofocus placeholder="Username">
+                            @if ($errors->has('username'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('username') }}</strong>
+                            </span>
+                            @endif
+                        </div>
                     </div>
-                </div> --}}
+                    <input type="hidden" name="login_with" value="both">
+                @else
+                    <div class="form-group{{ $errors->has($login_with) ? ' has-error' : '' }}">
+                        <div class="col-xs-12">
+                            <input id="{{$login_with}}" type="text" class="form-control" name="{{$login_with}}" value="{{ old($login_with) }}" placeholder="{{ ucfirst($login_with) }}">
+                            @if ($errors->has($login_with))
+                            <span class="help-block">
+                                <strong>{{ $errors->first($login_with) }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
+                @endif
                 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                     <div class="col-xs-12">
                         <input id="password" type="password" class="form-control"  placeholder="Password" name="password" required>
