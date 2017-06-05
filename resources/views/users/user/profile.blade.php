@@ -74,30 +74,46 @@
 
                 <div class="form-group {{ $errors->has('zipcode') ? 'has-error' : '' }}">
                     <label class="col-sm-3 control-label">Zip Code</label>
-                    <div class="col-sm-6">
-                        {!! Form::text('zipcode',old('zipcode'),array('class'=>'form-control')) !!}
+                    <div class="col-sm-4">
+                        {!! Form::text('zipcode',old('zipcode'),array('class'=>'form-control','data-mask'=>"99999")) !!}
                         {!! $errors->first('zipcode', '<span class="help-block">:message</span>') !!}
+                    </div>
+                    <div class="col-sm-2">
+                        {!! Form::text('zipcode_ext',old('zipcode_ext'),array('class'=>'form-control','placeholder'=>'Extension','data-mask'=>"9999")) !!}
+                        {!! $errors->first('zipcode_ext', '<span class="help-block">:message</span>') !!}
                     </div>
                 </div>            
                 <div class="form-group {{ $errors->has('mobile_contact_num') ? 'has-error' : '' }}">
                     <label class="col-sm-3 control-label">Mobile</label>
-                    <div class="col-sm-6">
-                        {!! Form::text('mobile_contact_num',old('mobile_contact_num'),array('class'=>'form-control','placeholder'=>'Mobile Num','data-mask'=>"+99-9999999-99")) !!}
+                    <div class="col-sm-4">
+                        {!! Form::text('mobile_contact_num',old('mobile_contact_num'),array('class'=>'form-control','placeholder'=>'Mobile Num','data-mask'=>"999 999-9999")) !!}
                         {!! $errors->first('mobile_contact_num', '<span class="help-block">:message</span>') !!}
+                    </div>
+                    <div class="col-sm-2">
+                        {!! Form::text('mobile_contact_ext',old('mobile_contact_ext'),array('class'=>'form-control','placeholder'=>'Extension','data-mask'=>"9999")) !!}
+                        {!! $errors->first('mobile_contact_ext', '<span class="help-block">:message</span>') !!}
                     </div>
                 </div>
                 <div class="form-group {{ $errors->has('work_contact_num') ? 'has-error' : '' }}">
                     <label class="col-sm-3 control-label">Office Phone</label>
-                    <div class="col-sm-6">
-                        {!! Form::text('work_contact_num',old('work_contact_num'),array('class'=>'form-control','placeholder'=>'Office Phone Num','data-mask'=>"+99-9999999-99")) !!}
+                    <div class="col-sm-4">
+                        {!! Form::text('work_contact_num',old('work_contact_num'),array('class'=>'form-control','placeholder'=>'Office Phone Num','data-mask'=>"999 999-9999")) !!}
                         {!! $errors->first('work_contact_num', '<span class="help-block">:message</span>') !!}
+                    </div>
+                    <div class="col-sm-2">
+                        {!! Form::text('work_contact_ext',old('work_contact_ext'),array('class'=>'form-control','placeholder'=>'Extension','data-mask'=>"9999")) !!}
+                        {!! $errors->first('work_contact_ext', '<span class="help-block">:message</span>') !!}
                     </div>
                 </div>
                 <div class="form-group {{ $errors->has('home_contact_num') ? 'has-error' : '' }}">
                     <label class="col-sm-3 control-label">Home Phone</label>
-                    <div class="col-sm-6">
-                        {!! Form::text('home_contact_num',old('home_contact_num'),array('class'=>'form-control','placeholder'=>'Office Phone Num','placeholder'=>'Home Phone Num','size'=>'10','data-mask'=>"+99-9999999-99")) !!}
+                    <div class="col-sm-4">
+                        {!! Form::text('home_contact_num',old('home_contact_num'),array('class'=>'form-control','placeholder'=>'Office Phone Num','placeholder'=>'Home Phone Num','size'=>'10','data-mask'=>"999 999-9999")) !!}
                         {!! $errors->first('home_contact_num', '<span class="help-block">:message</span>') !!}
+                    </div>
+                    <div class="col-sm-2">
+                        {!! Form::text('home_contact_ext',old('home_contact_ext'),array('class'=>'form-control','placeholder'=>'Extension','data-mask'=>"9999")) !!}
+                        {!! $errors->first('home_contact_ext', '<span class="help-block">:message</span>') !!}
                     </div>
                 </div>
                 <div class="form-group {{ $errors->has('interest') ? 'has-error' : '' }}">
