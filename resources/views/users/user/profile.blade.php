@@ -75,7 +75,7 @@
                 <div class="form-group {{ $errors->has('zipcode') ? 'has-error' : '' }}">
                     <label class="col-sm-3 control-label">Zip Code</label>
                     <div class="col-sm-4">
-                        {!! Form::text('zipcode',old('zipcode'),array('class'=>'form-control','data-mask'=>"99999")) !!}
+                        {!! Form::text('zipcode',old('zipcode'),array('class'=>'form-control','placeholder'=>'Zipcode','data-mask'=>"99999")) !!}
                         {!! $errors->first('zipcode', '<span class="help-block">:message</span>') !!}
                     </div>
                     <div class="col-sm-2">
