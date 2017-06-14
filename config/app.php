@@ -183,6 +183,8 @@ return [
         Zizaco\Entrust\EntrustServiceProvider::class,
         Arcanedev\NoCaptcha\NoCaptchaServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Laravel\Cashier\CashierServiceProvider::class,
+        Skovmand\Mailchimp\MailchimpServiceProvider::class,
     ],
 
     /*

@@ -31,6 +31,14 @@ Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallb
 Route::get('custom-auth/{provider}', 'Auth\LoginController@redirectToCustomProvider');
 Route::get('custom-auth/{provider}/callback', 'Auth\LoginController@handleCustomProviderCallback');
 
+/*PAYMENT*/
+Route::get('payment','Auth\LoginController@getPayment');
+Route::post('payment','Auth\LoginController@postPayment');
+
+Route::get('manageMailChimp', 'MailChimpController@manageMailChimp');
+Route::post('subscribe',['as'=>'subscribe','uses'=>'MailChimpController@subscribe']);
+Route::post('sendCompaign',['as'=>'sendCompaign','uses'=>'MailChimpController@sendCompaign']);
+
 /*USER MANAGEMENT*/
 Route::group(['middleware' => ['role:admin|user']], function()
 {

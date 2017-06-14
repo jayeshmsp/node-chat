@@ -171,4 +171,14 @@ class LoginController extends Controller
 
          return redirect('/home');
     }
+
+    public function getPayment()
+    {
+        return view('auth.payment');
+    }
+
+    public function postPayment()
+    {
+        echo "<pre>";print_r(\Input::all());exit;
+    }
 }
