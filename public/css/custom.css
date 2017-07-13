@@ -19,3 +19,10 @@
 #wrapper.new-login-register {
     position: relative;
 }
+.active-user{
+    background: #dfd;
+}
+.chat-box .slimScrollDiv {
+    height: 400px !important;
+}
+.chat-main-box .chat-left-aside {height: 100%; height: 530px; overflow: auto;}

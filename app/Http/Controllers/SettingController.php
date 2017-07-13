@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Repositories\UserRepo;
 use App\Repositories\SettingRepo;
 use Illuminate\Support\Facades\Validator;
+use App\User;
 use View;
 
 class SettingController extends Controller
@@ -55,5 +56,18 @@ class SettingController extends Controller
         }
 
         return redirect('setting')->with('error', 'Can not be created');
+    }
+    public function logs(Request $request)
+    {
+        $param['paginate'] = TRUE;
+        $items = $this->SettingRepo->getAllLog($param);
+
+        $srno = ($request->input('page', 1) - 1) * config("setup.par_page", 10)  + 1;
+        $users = User::pluck('name','id');
+
+        $compact = compact('items','srno','users');
+        return view($this->view_path.'.logs',$compact)
+                ->with('module_name','Activity Log')
+                ->with('title','Logs');
     }
 }

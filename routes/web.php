@@ -52,9 +52,12 @@ Route::group(['middleware' => ['role:admin|user']], function()
 	Route::get('role/{id}/permission', 'RoleController@permissions');
 	Route::post('role/{id}/permission', 'RoleController@permissionsStore');
 
+	Route::resource('chat', 'ChatController');
+
 });
 
 /*ADMIN ROUTE*/
 Route::group(['middleware' => ['role:admin']], function(){
+	Route::get('logs','SettingController@logs');
 	Route::resource('setting','SettingController');
 });

@@ -94,6 +94,8 @@
     <script src="{{asset('plugins/bower_components/calendar/dist/cal-init.js')}}"></script>
     <script src="{{ asset('js/bootbox.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap-tagsinput.min.js') }}"></script>
+    <script src="{{asset('plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+    <script src="{{asset('plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css')}}"></script>
     <script src="{{ asset('js/select2.min.js') }}"></script>
     <!-- Custom Theme JavaScript -->
     <script src="{{asset('js/custom.min.js')}}"></script>
@@ -101,6 +103,11 @@
     <!-- Custom tab JavaScript -->
     <script src="{{asset('js/cbpFWTabs.js')}}"></script>
     <script type="text/javascript">
+    $('.mydatepicker').datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        format: 'yyyy-mm-d'
+    });
     $('select').select2();
     (function() {
         [].slice.call(document.querySelectorAll('.sttabs')).forEach(function(el) {

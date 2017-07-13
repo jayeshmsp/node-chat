@@ -10,6 +10,7 @@ use App\Mail\EmailVerification;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Form;
 use View;
 use App\Setting;
@@ -35,6 +36,7 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/home';
+    protected $setting;
 
     /**
      * Create a new controller instance.
@@ -45,8 +47,9 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
 
-        $setting = Setting::first();
-        View::share('login_with',(isset($setting->login_with) && !empty($setting->login_with))?$setting->login_with:'email' );
+        $this->setting = Setting::first();
+        View::share('login_with',(isset($this->setting->login_with) && !empty($this->setting->login_with))?$this->setting->login_with:'email' );
+        View::share('after_register',(isset($this->setting->after_register) && !empty($this->setting->after_register))?$this->setting->after_register:'approval' );
     }
 
     /**
@@ -63,13 +66,13 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'g-recaptcha-response' => 'required|captcha',
-        ];
+        ];/*
         if (isset($data['login_with']) && !empty($data['login_with']) ) {
             $rules['username'] = 'required|string|max:255|unique:users';
         }elseif (isset($data['username']) && !empty($data['username']) ) {
             $rules['username'] = 'required|string|max:255|unique:users';
             unset($rules['email']);
-        }
+        }*/
 
         return Validator::make($data, $rules);
     }
@@ -82,7 +85,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $verified = (isset($data['username']) && !empty($data['username']))?'1':'0';
+        $verified = (isset($this->setting->after_register) && ($this->setting->after_register=='direct'))?'1':'0';
         $user =  User::create([
             'name' => $data['first_name'].' '.$data['last_name'],
             'first_name' => $data['first_name'],
@@ -110,29 +113,22 @@ class RegisterController extends Controller
         {
             $this->throwValidationException($request, $validator);
         }
-        // Using database transactions is useful here because stuff happening is actually a transaction
-        // I don't know what I said in the last line! Weird!
-        DB::beginTransaction();
-        try
-        {
-            $user = $this->create($request->all());
+        
+        $user = $this->create($request->all());
+        $msg = 'Register Successfully Please login.';
+        if (isset($this->setting->after_register) && ($this->setting->after_register=='approval') ) {
+            $email = new EmailVerification(new User(['email_token' => $user->email_token, 'name' => $user->name]));
+            Mail::to($user->email)->send($email);
             
-            $msg = 'Register Successfully Please login.';
-            if (isset($user->email) && !empty($user->email) ) {
-                $email = new EmailVerification(new User(['email_token' => $user->email_token, 'name' => $user->name]));
-                Mail::to($user->email)->send($email);
-                
-                $msg = 'Register Successfully Please check your mail for varification.';
-            }
-            
-            DB::commit();
-            return back()->with('success',$msg);
+            $msg = 'Register Successfully Please check your mail for varification.';
+        }else{
+            \Auth::guard()->login($user);
+            return redirect('/home')
+                ->with('success','Register Successfully.');
         }
-        catch(Exception $e)
-        {
-            DB::rollback(); 
-            return back();
-        }
+        
+        return back()->with('success',$msg);
+        
     }
 
     // Get the user who has the same token and change his/her status to verified i.e. 1

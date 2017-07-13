@@ -3,6 +3,7 @@
 use App\Setting;
 use App\Helpers\EloquentHelper;
 use DB;
+use Spatie\Activitylog\Models\Activity;
 
 class SettingRepo
 {
@@ -54,5 +55,14 @@ class SettingRepo
 			return array_combine($list,$list);
 		}
 		return array();
+	}
+
+	public function getAllLog($params = array())
+	{
+		$query = new Activity;
+
+        $EloquentHelper = new EloquentHelper();
+        return $EloquentHelper->allInOne($query, $params);
+		
 	}
 }

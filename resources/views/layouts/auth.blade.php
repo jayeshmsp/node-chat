@@ -40,6 +40,7 @@
     <script src="{{asset('js/jquery.slimscroll.js')}}"></script>
     <!--Wave Effects -->
     <script src="{{asset('js/waves.js')}}"></script>
+    <script src="{{asset('js/mask.js')}}"></script>
     <!-- Custom Theme JavaScript -->
     <script src="{{asset('js/custom.min.js')}}"></script>
     <!--Style Switcher -->

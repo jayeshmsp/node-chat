@@ -27,6 +27,14 @@
                     <a href="/setting"> <i class="mdi mdi-settings" data-icon="v"></i><span class="hide-menu"> Setting</span></a>
                 </li>                
             @endpermission
+            @permission('manage-logs')
+                <li class="waves-effect {{ ((Request::segment(1)=='logs') ? 'active' : '') }}">
+                    <a href="/logs"> <i class="mdi mdi-pencil" data-icon="v"></i><span class="hide-menu">Activity Log</span></a>
+                </li>                
+            @endpermission
+            <li class="waves-effect {{ ((Request::segment(1)=='chat') ? 'active' : '') }}">
+                <a href="/chat"> <i class="mdi mdi-gmail" data-icon="v"></i><span class="hide-menu">Chat</span></a>
+            </li>      
         </ul>
     </div>
 </div>

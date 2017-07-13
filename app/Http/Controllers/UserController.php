@@ -166,13 +166,14 @@ class UserController extends Controller
             'first_name' => 'required|string|alpha_space|max:255',
             'last_name' => 'required|string|alpha_space|max:255',
             'password' => 'sometimes|required|string|min:6|confirmed',
-            'mobile_contact_num' => 'required_without_all:work_contact_num,home_contact_num',
-            'work_contact_num' => 'required_without_all:mobile_contact_num,home_contact_num',
-            'home_contact_num' => 'required_without_all:mobile_contact_num,work_contact_num',
+            /*'mobile_contact_num' => 'required_without_all:work_contact_num,home_contact_num',
+            'work_contact_num' => 'required_without_all:mobile_contact_num,home_contact_num',*/
+            'home_contact_num' => 'required',
+            'dob' => 'required|date|date_format:Y-m-d',
             'email' => "required|email|max:255|unique:users,email,".$id,
-            'username' => "required|max:255|unique:users,username,".$id,
+            //'username' => "required|max:255|unique:users,username,".$id,
             'address' => "max:255",
-            'zipcode' => "max:5|min:5"
+            //'zipcode' => "max:5|min:5"
         ];
         if(!$request->input('password')){
             unset($rules['password']);

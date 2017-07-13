@@ -2,13 +2,21 @@
     <!-- Name -->
     <div class='row'>
         <!-- Login With -->
-        <div class="form-group {{ $errors->has('login_with') ? 'has-error' : '' }}">
+        {{-- <div class="form-group {{ $errors->has('login_with') ? 'has-error' : '' }}">
             <label class="control-label col-lg-3" for="login_with ">Login With : </label>
             <div class="col-lg-6">
                 {!! Form::radio('login_with', 'email' , true) !!} Email
                 {!! Form::radio('login_with', 'username' , false) !!} Username
                 {!! Form::radio('login_with', 'both' , false) !!} Both
                 {!! $errors->first('login_with', '<span class="help-block">:message</span>') !!}
+            </div>
+        </div> --}}
+        <div class="form-group {{ $errors->has('after_register') ? 'has-error' : '' }}">
+            <label class="control-label col-lg-3" for="login_with ">After Register : </label>
+            <div class="col-lg-6">
+                {!! Form::radio('after_register', 'direct' , true) !!} Direct Login
+                {!! Form::radio('after_register', 'approval' , false) !!} After Approval Login
+                {!! $errors->first('after_register', '<span class="help-block">:message</span>') !!}
             </div>
         </div>
         <div class="form-group {{ $errors->has('interest') ? 'has-error' : '' }}">

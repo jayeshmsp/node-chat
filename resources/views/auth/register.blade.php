@@ -26,7 +26,7 @@
                         @endif
                     </div>
                 </div>
-                @if ($login_with=='both')
+                {{-- @if ($login_with=='both')
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                         <div class="col-xs-12">
                             <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" required autofocus placeholder="Email">
@@ -59,7 +59,35 @@
                             @endif
                         </div>
                     </div>
-                @endif
+                @endif --}}
+                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                    <div class="col-xs-12">
+                        <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" placeholder="{{ ucfirst('email') }}">
+                        @if ($errors->has('email'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('email') }}</strong>
+                        </span>
+                        @endif
+                    </div>
+                </div>
+                <div class="form-group{{ $errors->has('home_contact_num') ? ' has-error' : '' }}">
+                    <div class="col-xs-4">
+                        {!! Form::text('home_contact_ext',old('home_contact_ext'),array('class'=>'form-control','placeholder'=>'Extension','data-mask'=>"9999")) !!}
+                        @if ($errors->has('home_contact_ext'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('home_contact_ext') }}</strong>
+                        </span>
+                        @endif
+                    </div>
+                    <div class="col-xs-8">
+                        {!! Form::text('home_contact_num',old('home_contact_num'),array('class'=>'form-control','placeholder'=>'Phone No','data-mask'=>"999 999-9999")) !!}
+                        @if ($errors->has('home_contact_num'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('home_contact_num') }}</strong>
+                        </span>
+                        @endif
+                    </div>
+                </div>
                 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                     <div class="col-xs-12">
                         <input id="password" type="password" class="form-control"  placeholder="Password" name="password" required>
